@@ -8,7 +8,7 @@ const { Server } = require("socket.io");
 
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "https://ngogiaquyen.id.vn/"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })

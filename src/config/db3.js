@@ -12,7 +12,7 @@ connection.connect((err) => {
     console.error('Lỗi kết nối đến MySQL3:', err.stack);
     return;
   }
-  console.log('Kết nối thành công tới MySQL với ID kết nối:', connection.threadId);
+  console.log('Kết nối thành công tới MySQL 3 với ID kết nối:', connection.threadId);
 });
 
 module.exports = connection;

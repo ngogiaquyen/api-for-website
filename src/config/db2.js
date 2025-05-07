@@ -7,12 +7,17 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME2 || 'my_api' // Tên cơ sở dữ liệu
 });
 
+console.log(process.env.DB_HOST2)
+console.log(process.env.DB_USER2)
+console.log(process.env.DB_PASSWORD2)
+console.log(process.env.DB_NAME2)
+
 connection.connect((err) => {
   if (err) {
     console.error('Lỗi kết nối đến MySQL2:', err.stack);
     return;
   }
-  console.log('Kết nối thành công tới MySQL với ID kết nối:', connection.threadId);
+  console.log('Kết nối thành công tới MySQL 2 với ID kết nối:', connection.threadId);
 });
 
 module.exports = connection;

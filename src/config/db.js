@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error('Lỗi kết nối đến MySQL:', err.stack);
+    console.error('Lỗi kết nối đến MySQL1:', err.stack);
     return;
   }
   console.log('Kết nối thành công tới MySQL với ID kết nối:', connection.threadId);

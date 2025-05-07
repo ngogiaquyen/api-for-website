@@ -49,7 +49,7 @@ exports.getMessages = (req, res) => {
     if (err) {
       return res
         .status(500)
-        .json({ message: "Error retrieving messages", error: err });
+        .json({ message: "Error retrieving messages ss", error: err });
     }
     res.status(200).json(result);
   });

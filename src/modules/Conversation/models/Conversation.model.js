@@ -1,4 +1,4 @@
-const connection = require("~/config/db3");
+const connection = require("~/config/db2");
 
 // Bắt đầu cuộc trò chuyện mới
 exports.startConversation = (conversationData, callback) => {
@@ -41,12 +41,10 @@ exports.checkOrCreateConversation = (conversation_id, customer_id, lawyer_id, as
       return callback(null, results[0].id);
     } else {
       // Chưa tồn tại -> tạo mới
-      console.log("chưa tồn tại")
       const insertQuery = `
         INSERT INTO conversations (id, customer_id, lawyer_id, started_at, status, assigned_by)
         VALUES (?, ?, ?, NOW(), ?, ?)
       `;
-      console.log("data: ", [conversation_id, customer_id, lawyer_id, 'active', assigned_by])
       connection.query(insertQuery, [conversation_id, customer_id, lawyer_id, 'active', assigned_by], (err, result) => {
         if (err) return callback(err, null);
         return callback(null, conversation_id); // dùng id đã truyền vào

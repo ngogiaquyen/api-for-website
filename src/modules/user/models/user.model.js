@@ -1,4 +1,4 @@
-const connection = require('~/config/db3');
+const connection = require('~/config/db2');
 
 // Tạo người dùng mới
 exports.createUser = (userData, callback) => {

@@ -19,9 +19,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-app.get('/', (req, res) => {
-  res.send('Hello from Node.js on Vercel!');
-});
+
 
 require("~/config/socket")(io);
 

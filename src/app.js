@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const userRoutes = require("./modules/user/routes/user.route");
+// const userRoutes = require("./modules/user/routes/user.route");
 const postRoutes = require("./modules/post/routes/post.route");
-const messageRoute = require("./modules/Message/routes/Message.route");
+// const messageRoute = require("./modules/Message/routes/Message.route");
 
 app.use(
   cors({
@@ -19,9 +19,9 @@ app.use(
 
 app.use(express.json());
 
-app.use("/users", userRoutes);
+// app.use("/users", userRoutes);
 app.options("/api/posts", cors());
 app.use("/api/posts", postRoutes);
-app.use("/message", messageRoute);
+// app.use("/message", messageRoute);
 
 module.exports = app;

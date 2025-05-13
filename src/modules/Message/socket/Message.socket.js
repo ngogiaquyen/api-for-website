@@ -1,9 +1,14 @@
+const { handleMessage } = require("../controllers/Message.controller");
+
 // Lưu trữ ánh xạ giữa user_id và socket.id
 const userSocketMap = {}; // { user_id: socket.id }
 
 module.exports = (io) => {
   io.on("connection", (socket) => {
     console.log("🟢 New client connected chat:", socket.id);
+
+    // Đánh dấu đã thông báo = false ban đầu
+    socket.hasNotified = false;
 
     // Bước 1: Client phải gửi user_id sau khi kết nối
     socket.on("register", (user_id) => {
@@ -21,6 +26,12 @@ module.exports = (io) => {
         io.to(receiverSocketId).emit("chat", data);
       } else {
         console.log("⚠️ Receiver not connected:", data.receiver_id);
+      }
+
+      // xử lí gửi về email các thứ
+      if (data.receiver_id === 1 && !socket.hasNotified) {
+        handleMessage(data);
+        socket.hasNotified = true; // Đánh dấu đã gửi email
       }
     });
 

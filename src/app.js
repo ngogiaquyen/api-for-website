@@ -4,7 +4,8 @@ const cors = require("cors");
 
 // const userRoutes = require("./modules/user/routes/user.route");
 const postRoutes = require("./modules/post/routes/post.route");
-// const messageRoute = require("./modules/Message/routes/Message.route");
+const messageRoute = require("./modules/Message/routes/Message.route");
+const sendNotificationEmail = require("./config/mail");
 
 app.use(
   cors({
@@ -22,6 +23,7 @@ app.use(express.json());
 // app.use("/users", userRoutes);
 app.options("/api/posts", cors());
 app.use("/api/posts", postRoutes);
-// app.use("/message", messageRoute);
+app.use("/message", messageRoute);
+
 
 module.exports = app;

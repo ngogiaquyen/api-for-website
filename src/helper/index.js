@@ -7,3 +7,16 @@ exports.fomatMessageEmail = (data)=>{
     </div>`
 
 }
+
+exports.convertMessageDataToFormData = (messageData) => {
+  const formData = new FormData();
+
+  // Lặp qua các thuộc tính của messageData và thêm vào formData
+  for (const key in messageData) {
+    if (messageData.hasOwnProperty(key)) {
+      formData.append(key, messageData[key]);
+    }
+  }
+
+  return formData;
+}

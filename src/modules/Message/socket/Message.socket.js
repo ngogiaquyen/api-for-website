@@ -1,3 +1,6 @@
+const { convertMessageDataToFormData } = require("../../../helper");
+const { postData } = require("../../../helper/apiService.js");
+const { fetchMessage } = require("../../../helper/fetchMessage");
 const { handleMessage } = require("../controllers/Message.controller");
 
 // Lưu trữ ánh xạ giữa user_id và socket.id
@@ -17,10 +20,11 @@ module.exports = (io) => {
     });
 
     // Bước 2: Gửi message tới người nhận
-    socket.on("newMessage", (data) => {
+    socket.on("newMessage", async (data) => {
       console.log("📝 New message:", data, "đã được gửi tới", data.receiver_id);
 
       const receiverSocketId = userSocketMap[data.receiver_id];
+      const senderSocketId = userSocketMap[data.sender_id];
 
       if (receiverSocketId) {
         io.to(receiverSocketId).emit("chat", data);
@@ -32,6 +36,21 @@ module.exports = (io) => {
       if (data.receiver_id === 1 && !socket.hasNotified) {
         handleMessage(data);
         socket.hasNotified = true; // Đánh dấu đã gửi email
+      }
+      if(data.receiver_id === 1){
+        const result = await fetchMessage(data);
+        
+        const formData = convertMessageDataToFormData(result);
+        // lưu tin vào db
+        const response = await postData('/message/send', formData);
+        
+        // gửi tin nhắn từ bot lại người send
+        if (senderSocketId) {
+          io.to(senderSocketId).emit("chat", result);
+          console.log("đã gửi lại")
+        } else {
+          console.log("⚠️ sender not connected:", data.sender_id);
+        }
       }
     });
 
